@@ -1,4 +1,4 @@
-@library("shared-library") _
+@Library("shared-library") _
 pipeline {
     agent any
     //docker { image 'shivam139/jenkins-agent-ubuntu:v2' args '--user root -v /var/run/docker.sock:/var/run/docker.sock' }
@@ -16,11 +16,11 @@ pipeline {
         }
         stage('Build & push docker image') {
             environment {
-                DockerFile_path = "CI/Python-app"
+                DockerFile_path = "CI/Python-app/"
             }
             
             steps {
-                echo 'Building the Docker Image And then will push the image to the dockerHub...'
+                echo 'Building the docker image and pushing to the dockerHub...'
                 dockerImage()
             }
         }

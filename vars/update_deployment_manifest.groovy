@@ -1,4 +1,4 @@
-def update_Deployment_Manifest(){
+def updateDeploymentManifest(){
     withCredentials([
         string(credentialsId: "gitHubEmail", variable: "GITHUB_EMAIL"),
         string(credentialsId: "gitHubToken", variable: "GITHUB_TOKEN"),
