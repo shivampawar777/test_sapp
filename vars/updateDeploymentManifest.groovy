@@ -14,7 +14,7 @@ def call(){
                 sed -i "s|${DOCKER_USER}/streamlit-app:.*|${DOCKER_USER}/streamlit-app:${env.IMAGE_TAG}|g" \
                 ${env.deployment_file_path}
                         
-                git add Deployment-Manifest/deployment.yml
+                git add ${env.deployment_file_path}
                 git commit -m "Updated deployment image to version ${env.IMAGE_TAG}"
                 git push https://${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${env.GITHUB_REPO} HEAD:main
             """        
