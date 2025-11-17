@@ -3,12 +3,12 @@ kind: Service
 metadata:
   name: streamlit-app-service
 spec:
-  selector:
-    app: streamlit-app
+  type: NodePort
   ports:
   - name: http
-    protocol: TCP
     port: 80
     targetPort: 8501
-  type: NodePort
+    protocol: TCP
+  selector:
+    app: streamlit-app
   

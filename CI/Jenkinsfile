@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/shivampawar777/streamlit_application.git' 
+                git branch: 'main', url: 'https://github.com/shivampawar777/test_sapp.git' 
                 sh 'echo passed...'
             }
         }
@@ -27,7 +27,7 @@ pipeline {
         stage('Update deployment manifest') {
             environment {
                 GITHUB_USER = "shivampawar777"
-                GITHUB_REPO = "streamlit_application"
+                GITHUB_REPO = "test_sapp"
                 deployment_file_path = "CD/Deployment-Manifest/deployment.yml"
             }
             steps {
