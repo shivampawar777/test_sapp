@@ -1,6 +1,6 @@
 def call() {
     withCredentials([
-        usernamePassword(credentialsId: "dockerHubCred",
+        usernamePassword(credentialsId: "dockerHub",
                         usernameVariable: "DOCKER_USER",
                         passwordVariable: "DOCKER_TOKEN")
     ]) {
