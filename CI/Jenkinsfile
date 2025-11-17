@@ -1,0 +1,38 @@
+@library("shared-library") _
+pipeline {
+    agent any
+    //docker { image 'shivam139/jenkins-agent-ubuntu:v2' args '--user root -v /var/run/docker.sock:/var/run/docker.sock' }
+
+    environment {
+        IMAGE_TAG = "v${env.BUILD_NUMBER}"
+    }
+
+    stages {
+        stage('checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/shivampawar777/streamlit_application.git' 
+                sh 'echo passed...'
+            }
+        }
+        stage('Build & push docker image') {
+            environment {
+                DockerFile_path = "CI/Python-app"
+            }
+            
+            steps {
+                echo 'Building the Docker Image And then will push the image to the dockerHub...'
+                dockerImage()
+            }
+        }
+        stage('Update deployment manifest') {
+            environment {
+                GITHUB_USER = "shivampawar777"
+                GITHUB_REPO = "streamlit_application"
+                deployment_file_path = "CD/Deployment-Manifest/deployment.yml"
+            }
+            steps {
+                update_deployment_manifest() 
+            }
+        }
+    }
+}
