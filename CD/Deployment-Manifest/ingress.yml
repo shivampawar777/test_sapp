@@ -19,12 +19,19 @@ spec:
               service:
                 name: streamlit-app
                 port:   
-                  number: 80
-          - path: /monitor
+                  number: 7080
+          - path: /prometheus
             pathType: Prefix
             backend:
               service: 
-                name: 
+                name: monitoring-kube-prometheus-prometheus
                 port: 
-                  number: 8090
+                  number: 9090
+          - path: /grafana
+            pathType: Prefix
+            backend:
+              service: 
+                name: monitoring-grafana
+                port: 
+                  number: 80
       
