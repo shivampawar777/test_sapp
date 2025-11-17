@@ -10,12 +10,12 @@ Prerequisites:
 
 Run this project on local environment then go ahed for CICD.
 
-### Install AWS CLI v2
+
+### Install docker
 ``` shell
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-sudo apt install unzip
-unzip awscliv2.zip
-sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
+sudo apt-get update
+sudo apt install docker.io -y 
+sudo chown $USER /var/run/docker.sock
 ```
 
 ### Install kubectl
@@ -33,10 +33,18 @@ sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
 ```
 
+### Install AWS CLI v2
+``` shell
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo apt install unzip
+unzip awscliv2.zip
+sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
+```
+
 ### Create cluster
 ``` shell
 eksctl create cluster \
---name three-tier-cluster \
+--name streamlit-cluster \
 --region us-east-1 \
 --node-type t2.medium \
 --nodes-min 2 \
@@ -47,7 +55,7 @@ eksctl create cluster \
 ``` shell
 aws eks update-kubeconfig \
 --region us-east-1 \
---name three-tier-cluster
+--name streamlit-cluster
 kubectl get nodes
 ```
 
@@ -63,14 +71,14 @@ aws iam create-policy \
 ``` shell
 eksctl utils associate-iam-oidc-provider \
 --region=us-east-1 \
---cluster=three-tier-cluster \
+--cluster=streamlit-cluster \
 --approve
 ```
 
 ### Create service account
 ``` shell
 eksctl create iamserviceaccount \
---cluster=three-tier-cluster \
+--cluster=streamlit-cluster \
 --namespace=kube-system \
 --name=aws-load-balancer-controller \
 --role-name AmazonEKSLoadBalancerControllerRole \
@@ -88,7 +96,7 @@ helm repo update eks
 
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
 -n kube-system \
---set clusterName=my-cluster \
+--set clusterName=streamlit-cluster \
 --set serviceAccount.create=false \
 --set serviceAccount.name=aws-load-balancer-controller
 ```
