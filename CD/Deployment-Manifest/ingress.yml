@@ -7,7 +7,6 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
-    argocd.argoproj.io/tracking-id: testapp:networking.k8s.io/Ingress:streamlit-app/mainlb
 spec:
   ingressClassName: alb
   rules:
