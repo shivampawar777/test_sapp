@@ -21,7 +21,7 @@ pipeline {
             
             steps {
                 echo 'Building the docker image and pushing to the dockerHub...'
-                docker_Image()
+                dockerImage()
             }
         }
         stage('Update deployment manifest') {
@@ -31,7 +31,7 @@ pipeline {
                 deployment_file_path = "CD/Deployment-Manifest/deployment.yml"
             }
             steps {
-                update_deployment_manifest() 
+                updateDeploymentManifest() 
             }
         }
     }

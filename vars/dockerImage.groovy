@@ -1,4 +1,4 @@
-def dockerImage() {
+def call() {
     withCredentials([
         usernamePassword(credentialsId: "dockerHubCred",
                         usernameVariable: "DOCKER_USER",
